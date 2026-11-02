@@ -1,26 +1,36 @@
 import React from 'react';
 import Link from 'next/link';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type BaseProps = {
   children: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'outline' | 'glass';
   size?: 'sm' | 'md' | 'lg';
-  href?: string;
   className?: string;
   icon?: React.ReactNode;
-}
+};
+
+type ButtonAsButton = BaseProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    href?: undefined;
+  };
+
+type ButtonAsLink = BaseProps &
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+    href: string;
+  };
+
+export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 export function Button({
   children,
   variant = 'primary',
   size = 'md',
-  href,
   className = '',
   icon,
   ...props
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98] cursor-pointer disabled:opacity-50 disabled:pointer-events-none';
+    'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:scale-[0.98] cursor-pointer disabled:opacity-50 disabled:pointer-events-none select-none';
 
   const sizeStyles = {
     sm: 'text-xs px-3.5 py-1.5 gap-1.5 shadow-sm',
@@ -46,21 +56,24 @@ export function Button({
     </>
   );
 
-  if (href) {
+  if ('href' in props && props.href) {
+    const { href, ...anchorProps } = props;
     return (
       <Link
         href={href}
         className={`group ${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
+        {...anchorProps}
       >
         {content}
       </Link>
     );
   }
 
+  const buttonProps = props as React.ButtonHTMLAttributes<HTMLButtonElement>;
   return (
     <button
       className={`group ${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
-      {...props}
+      {...buttonProps}
     >
       {content}
     </button>
