@@ -60,6 +60,13 @@ export const COMPANY_INFO = {
     isLive: false,
     inactiveNotice: 'WhatsApp direct connection requires international dialing prefix confirmation.',
   },
+  currencyConfig: {
+    currency: 'Indian Rupee',
+    symbol: '₹',
+    code: 'INR',
+    locale: 'en-IN',
+    defaultMarket: 'India',
+  },
   ctaHeadline: "Have an Idea? Let's Build Something Amazing.",
   copyright: `© ${new Date().getFullYear()} ArvinSoftware. All rights reserved.`,
 };

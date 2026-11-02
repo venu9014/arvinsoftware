@@ -3,6 +3,7 @@
 import React, { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { COMPANY_INFO, PROPOSED_SERVICES } from '@/data/companyData';
+import { INR_BUDGET_OPTIONS } from '@/utils/currency';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -536,13 +537,11 @@ function ContactFormInner() {
                     className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all"
                   >
                     <option value="">Select budget range (optional)</option>
-                    <option value="Under $5,000">Under $5,000</option>
-                    <option value="$5,000 - $15,000">$5,000 - $15,000</option>
-                    <option value="$15,000 - $35,000">$15,000 - $35,000</option>
-                    <option value="$35,000+">$35,000+</option>
-                    <option value="Flexible / Discussion Needed">
-                      Flexible / Discussion Needed
-                    </option>
+                    {INR_BUDGET_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
