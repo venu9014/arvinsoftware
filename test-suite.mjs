@@ -396,7 +396,7 @@ async function runTestSuite() {
   // --- PART 7: 404 Not Found Page Testing ---
   console.log('\n--- 7. Testing 404 Not Found Page Handling ---');
   await page.setViewport({ width: 1440, height: 900 });
-  const notFoundRes = await page.goto(`${BASE_URL}/non-existent-page-route-test-404`, { waitUntil: 'networkidle0' });
+  await page.goto(`${BASE_URL}/non-existent-page-route-test-404`, { waitUntil: 'networkidle0' });
   const notFoundContent = await page.evaluate(() => document.body.innerText);
   const hasReturnBtn = await page.evaluate(() => !!document.querySelector('a[href="/"]'));
 
